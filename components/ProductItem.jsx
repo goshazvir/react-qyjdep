@@ -6,38 +6,51 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: 500,
   },
   media: {
-    height: 140,
+    height: 400,
   },
 });
 
 const ProductItem = (props) => {
   const {
+    mediaUrl,
+    mediaTitle,
+    productName,
+    brand,
+    sku,
+    price,
+    productUrl,
     content
   } = props
 
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card>
       <CardMedia
         className={classes.media}
-        image="/static/images/cards/contemplative-reptile.jpg"
-        title="Contemplative Reptile"
+        image={mediaUrl}
+        title={mediaTitle}
       />
-
       <CardContent>
+        <Link href={productUrl}>
+          {productName}
+        </Link>
         <Typography gutterBottom variant="h5" component="h2">
-          Lizard
+          {price}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {content}
+        <Typography variant="overline" color="textSecondary" component="p">
+          {brand}
+        </Typography>
+        <Typography variant="caption" color="textSecondary" component="p">
+          <span>{sku}</span>
         </Typography>
       </CardContent>
 
