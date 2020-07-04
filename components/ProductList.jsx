@@ -61,7 +61,7 @@ const ProductList = () => {
               sku={product.code}
               productUrl={product.pdpURL}
               color={product.color}
-              colorSwatch={product.colorSwatch.length && renderColorSwatches(product)}
+              colorSwatch={product.colorSwatch[0] && renderColorSwatches(product)}
             />
           </Grid>
         )
