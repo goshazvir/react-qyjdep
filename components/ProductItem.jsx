@@ -1,18 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
-import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },4
+});
 
 const ProductItem = (props) => {
   const {
     content
   } = props
 
+  const classes = useStyles();
+
   return (
-    <>
-      <Grid item xs={12} sm={6}>
-        {content}
-      </Grid>
-    </>  
+    <Card className={classes.root}>
+      <CardMedia
+        className={classes.media}
+        image="/static/images/cards/contemplative-reptile.jpg"
+        title="Contemplative Reptile"
+      />
+
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="h2">
+          Lizard
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {content}
+        </Typography>
+      </CardContent>
+
+      <CardActions>
+        <Button size="small" color="primary">
+          Share
+        </Button>
+        <Button size="small" color="primary">
+          Learn More
+        </Button>
+      </CardActions>
+    </Card>
   )
 }
 
