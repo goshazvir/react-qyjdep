@@ -35,7 +35,14 @@ const ProductList = () => {
       items.colorSwatch.map(item => {
         return (
           <li className="list-item" key={uniqid()}>
-            <Avatar src={item.imageURL} className={classes.avatarSize} />
+            <Link
+              href="https://www.google.com/"
+              target="_blank"
+              rel="noreferrer"
+              color="inherit"
+            >
+              <Avatar src={item.imageURL} className={classes.avatarSize} />
+            </Link>
           </li>
         )
       })
