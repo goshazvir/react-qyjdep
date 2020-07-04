@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
+import Link from '@material-ui/core/Link';
 import uniqid from 'uniqid';
 import productsApiData from './../apis/productsApiData';
 import ProductItem from './ProductItem';
@@ -52,7 +53,9 @@ const ProductList = () => {
                 product.colorSwatch.map(item => {
                   return (
                     <li className="list-item">
-                      <Avatar src={item.imageURL} className={classes.avatarSize} />
+                      <Link href="#" color="inherit">
+                        <Avatar src={item.imageURL} className={classes.avatarSize} />
+                      </Link>
                     </li>
                   )
                 })
