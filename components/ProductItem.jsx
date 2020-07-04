@@ -10,11 +10,11 @@ import Link from '@material-ui/core/Link';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   mediaHeight: {
     height: 456,
   }
-}));
+});
 
 const ProductItem = (props) => {
   const {
@@ -56,13 +56,14 @@ const ProductItem = (props) => {
             </Typography>
           }
           {price &&
-            <Typography
-              gutterBottom
-              variant="button"
-              className="push"
-            >
-              {price}
-            </Typography>
+            <div className="price">
+              <Typography
+                gutterBottom
+                variant="button"
+              >
+                {price}
+              </Typography>
+            </div>
           }
         </div>
         {brand &&

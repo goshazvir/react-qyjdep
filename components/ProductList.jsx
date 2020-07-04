@@ -28,7 +28,19 @@ const ProductList = () => {
   const getProducts = async () => {
     const response = await productsApiData.get();
     setProductsData(response.data.pageItems)
-  } 
+  }
+
+  const renderColorSwatches = (items) => {
+    return (
+      items.colorSwatch.map(item => {
+        return (
+          <li className="list-item" key={uniqid()}>
+            <Avatar src={item.imageURL} className={classes.avatarSize} />
+          </li>
+        )
+      })
+    )
+  }
 
   return (
     <>
@@ -49,17 +61,7 @@ const ProductList = () => {
               sku={product.code}
               productUrl={product.pdpURL}
               color={product.color}
-              colorSwatch={product.colorSwatch[0] &&
-                product.colorSwatch.map(item => {
-                  return (
-                    <li className="list-item">
-                      <Link href="#" color="inherit">
-                        <Avatar src={item.imageURL} className={classes.avatarSize} />
-                      </Link>
-                    </li>
-                  )
-                })
-              }
+              colorSwatch={product.colorSwatch.length && renderColorSwatches(product)}
             />
           </Grid>
         )
