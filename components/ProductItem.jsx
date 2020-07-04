@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
   media: {
     height: 140,
-  },4
+  },
 });
 
 const ProductItem = (props) => {
