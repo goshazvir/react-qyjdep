@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
 import uniqid from 'uniqid';
-import productsApiData from './../apis/productsApiData'
-import ProductItem from './ProductItem'
+import productsApiData from './../apis/productsApiData';
+import ProductItem from './ProductItem';
+
+const useStyles = makeStyles((theme) => ({
+  avatarSize: {
+    width: theme.spacing(3),
+    height: theme.spacing(3)
+  }
+}));
 
 const ProductList = () => {
   const [productsData, setProductsData] = useState();
+
+  const classes = useStyles();
 
   useEffect(() => {
     getProducts()
@@ -21,7 +32,6 @@ const ProductList = () => {
   return (
     <>
       {productsData && productsData.map(product => {
-        console.log(product)
         return (
           <Grid
             item
@@ -38,6 +48,15 @@ const ProductList = () => {
               sku={product.code}
               productUrl={product.pdpURL}
               color={product.color}
+              colorSwatch={product.colorSwatch[0] &&
+                product.colorSwatch.map(item => {
+                  return (
+                    <li className="list-item">
+                      <Avatar src={item.imageURL} className={classes.avatarSize} />
+                    </li>
+                  )
+                })
+              }
             />
           </Grid>
         )

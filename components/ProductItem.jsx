@@ -10,14 +10,11 @@ import Link from '@material-ui/core/Link';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 500,
-  },
-  media: {
-    height: 400,
-  },
-});
+const useStyles = makeStyles((theme) => ({
+  mediaHeight: {
+    height: 456,
+  }
+}));
 
 const ProductItem = (props) => {
   const {
@@ -29,7 +26,8 @@ const ProductItem = (props) => {
     price,
     productUrl,
     content,
-    color
+    color,
+    colorSwatch
   } = props
 
   const classes = useStyles();
@@ -38,14 +36,14 @@ const ProductItem = (props) => {
     <Card>
       {mediaUrl ?
         <CardMedia
-          className={classes.media}
+          className={classes.mediaHeight}
           image={mediaUrl}
           title={mediaTitle}
         />
       : <Skeleton
           animation="wave"
           variant="rect"
-          className={classes.media}
+          className={classes.mediaHeight}
         />
       }
       <CardContent>
@@ -94,6 +92,7 @@ const ProductItem = (props) => {
             <strong>Color:</strong> {color}
           </Typography>
         }
+        <ul className="list">{colorSwatch}</ul>
       </CardContent>
     </Card>
   )

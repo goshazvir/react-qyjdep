@@ -9,3 +9,18 @@ body {
 .push {
   margin-left: auto;
 }
+
+.list {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.list-item {
+  float: left;
+  margin-left: 4px;
+}
+
+.list-item:first-child {
+    margin-left: 0px;
+}
