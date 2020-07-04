@@ -18,10 +18,6 @@ const ProductList = () => {
     setProductsData(response.data.pageItems)
   } 
 
-  if (productsData) {
-    console.log(productsData)
-  }
-
   return (
     <>
       {productsData && productsData.map(product => {
@@ -40,8 +36,8 @@ const ProductList = () => {
               brand={product.brandName}
               price={<Box color="success.main">{product.price}</Box>}
               sku={product.code}
-              sku={product.code}
               productUrl={product.pdpURL}
+              color={product.color}
             />
           </Grid>
         )

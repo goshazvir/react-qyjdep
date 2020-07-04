@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
+import Skeleton from '@material-ui/lab/Skeleton';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
@@ -27,41 +28,73 @@ const ProductItem = (props) => {
     sku,
     price,
     productUrl,
-    content
+    content,
+    color
   } = props
 
   const classes = useStyles();
 
   return (
     <Card>
-      <CardMedia
-        className={classes.media}
-        image={mediaUrl}
-        title={mediaTitle}
-      />
+      {mediaUrl ?
+        <CardMedia
+          className={classes.media}
+          image={mediaUrl}
+          title={mediaTitle}
+        />
+      : <Skeleton
+          animation="wave"
+          variant="rect"
+          className={classes.media}
+        />
+      }
       <CardContent>
-        <Link href={productUrl}>
-          {productName}
-        </Link>
-        <Typography gutterBottom variant="h5" component="h2">
-          {price}
-        </Typography>
-        <Typography variant="overline" color="textSecondary" component="p">
-          {brand}
-        </Typography>
-        <Typography variant="caption" color="textSecondary" component="p">
-          <span>{sku}</span>
-        </Typography>
+        <div className="box">
+          {productName && productUrl &&
+            <Typography variant="h6">
+              <Link href={productUrl} color="inherit">
+                {productName}
+              </Link>
+            </Typography>
+          }
+          {price &&
+            <Typography
+              gutterBottom
+              variant="button"
+              className="push"
+            >
+              {price}
+            </Typography>
+          }
+        </div>
+        {brand &&
+          <Typography
+            variant="caption"
+            color="textSecondary"
+            component="p"
+          >
+            <strong>Brand:</strong> {brand}
+          </Typography>
+        }
+        {sku &&
+          <Typography
+            variant="caption"
+            color="textSecondary"
+            component="p"
+          >
+            <strong>Sku:</strong> {sku}
+          </Typography>
+        }
+        {color &&
+          <Typography
+            variant="caption"
+            color="textSecondary"
+            component="p"
+          >
+            <strong>Color:</strong> {color}
+          </Typography>
+        }
       </CardContent>
-
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
     </Card>
   )
 }
