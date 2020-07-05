@@ -30,3 +30,7 @@ body {
 .list-item:first-child {
   margin-left: 0px;
 }
+
+.MuiPagination-root {
+  margin: 10px auto;
+}

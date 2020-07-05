@@ -7,7 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-import Skeleton from '@material-ui/lab/Skeleton';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
@@ -34,16 +33,11 @@ const ProductItem = (props) => {
 
   return (
     <Card>
-      {mediaUrl ?
+      {mediaUrl &&
         <CardMedia
           className={classes.mediaHeight}
           image={mediaUrl}
           title={mediaTitle}
-        />
-      : <Skeleton
-          animation="wave"
-          variant="rect"
-          className={classes.mediaHeight}
         />
       }
       <CardContent>
