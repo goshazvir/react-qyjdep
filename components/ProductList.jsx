@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { render } from 'react-dom';
 import uniqid from 'uniqid';
 import productsApiData from './../apis/productsApiData';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
 const ProductList = () => {
   const [productsData, setProductsData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const [showItems, setShowItems] = useState(PRODUCT_ITEMS_SHOWED_ON_PAGE);
   const PAGINATION_ITEMS_LENGTH = (productsData && (productsData.length / PRODUCT_ITEMS_SHOWED_ON_PAGE));
 
   const classes = useStyles();
@@ -38,9 +36,9 @@ const ProductList = () => {
   }
 
   const getCurrentPageId = (type, page, selected) => {
-    if (selected) {
-      setCurrentPage(page)
-    }
+      if (selected) {
+        setCurrentPage(page)
+      }
   }
 
   const renderColorSwatches = (items) => {
@@ -90,8 +88,8 @@ const ProductList = () => {
     )
   }
 
-  let productStartItem = currentPage === 1 ? 0 : (currentPage - 1) * PRODUCT_ITEMS_SHOWED_ON_PAGE
-  let productEndItem = currentPage === 1 ? PRODUCT_ITEMS_SHOWED_ON_PAGE : currentPage * PRODUCT_ITEMS_SHOWED_ON_PAGE
+  let productStartItem = currentPage === 1 ? 0 : (currentPage - 1) * PRODUCT_ITEMS_SHOWED_ON_PAGE;
+  let productEndItem = currentPage === 1 ? PRODUCT_ITEMS_SHOWED_ON_PAGE : currentPage * PRODUCT_ITEMS_SHOWED_ON_PAGE;
 
   return (
     <>
