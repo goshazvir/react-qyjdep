@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
 import Grid from '@material-ui/core/Grid';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -34,5 +35,13 @@ const ProductSkeleton = (props) => {
     </>
   )
 }
+
+ProductSkeleton.defaultProps = {
+  length: 2
+};
+
+ProductSkeleton.propTypes = {
+  length: PropTypes.number
+};
 
 export default ProductSkeleton;

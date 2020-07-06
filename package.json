@@ -10,7 +10,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "axios": "^0.18.1",
-    "uniqid": "^5.2.0"
+    "uniqid": "^5.2.0",
+    "prop-types": "^15.7.2"
   },
   "scripts": {
     "start": "react-scripts start",

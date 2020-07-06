@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -88,5 +89,17 @@ const ProductItem = (props) => {
     </Card>
   )
 }
+
+ProductItem.propTypes = {
+  mediaUrl: PropTypes.string,
+  mediaTitle: PropTypes.string,
+  productName: PropTypes.string,
+  brand: PropTypes.string,
+  sku: PropTypes.string,
+  price: PropTypes.object.isRequired,
+  productUrl: PropTypes.string,
+  color: PropTypes.string,
+  colorSwatch: PropTypes.object
+};
 
 export default ProductItem;

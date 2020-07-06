@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import uniqid from 'uniqid';
 import productsApiData from './../apis/productsApiData';
+import uniqid from 'uniqid';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Pagination from '@material-ui/lab/Pagination';
