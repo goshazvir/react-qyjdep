@@ -1,42 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import productsApiData from './../apis/productsApiData';
+import PropTypes from 'prop-types';
+import { onSnapshot } from "mobx-state-tree"
+import store from './../store/appStore';
+import productItemsOnPage from './../config/config';
 import uniqid from 'uniqid';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Pagination from '@material-ui/lab/Pagination';
 import ProductItem from './ProductItem';
 import ProductSkeleton from './ProductSkeleton';
 import ColorSwatches from './ColorSwatches';
 
-const PRODUCT_ITEMS_SHOWED_ON_PAGE = 10;
 
-const ProductList = () => {
-  const [productsData, setProductsData] = useState();
-  const [currentPage, setCurrentPage] = useState(1);
-  const PAGINATION_ITEMS_LENGTH = (productsData && (productsData.length / PRODUCT_ITEMS_SHOWED_ON_PAGE));
+
+const ProductList = (props) => {
+  const { data } = props
+  const [pageID, setPageID] = useState(1);
+  let productMinValue = pageID === 1 ? 0 : (pageID - 1) * productItemsOnPage;
+  let productMaxValue = productItemsOnPage === 1 ? productItemsOnPage : pageID * productItemsOnPage;
 
   useEffect(() => {
-    getProducts()
-  }, [])
-
-  const getProducts = async () => {
-    const response = await productsApiData.get();
-    setProductsData(response.data.pageItems)
-  }
-
-  const getCurrentPageId = (type, page, selected) => {
-    if (selected) {
-      setCurrentPage(page)
-    }
-  }
-
-  let productStartItem = currentPage === 1 ? 0 : (currentPage - 1) * PRODUCT_ITEMS_SHOWED_ON_PAGE
-  let productEndItem = currentPage === 1 ? PRODUCT_ITEMS_SHOWED_ON_PAGE : currentPage * PRODUCT_ITEMS_SHOWED_ON_PAGE
+    onSnapshot(store, snapshot => {
+      if (store.PageID[0].PageID) {
+        setPageID(store.PageID[0].PageID)
+      }
+    })
+  }, []);
 
   return (
     <>
-      {productsData ?
-        productsData.slice(productStartItem, productEndItem).map(product => {
+      {data ?
+          data.slice(productMinValue, productMaxValue).map(product => {
+            const {
+              mobileImageURLs,
+              productName,
+              brandName,
+              price,
+              code,
+              pdpURL,
+              color,
+              colorSwatch
+            } = product
+
           return (
             <Grid
               item
@@ -45,29 +49,29 @@ const ProductList = () => {
               key={uniqid()}
             >
               <ProductItem
-                mediaUrl={product.mobileImageURLs[0]}
-                mediaTitle={product.productName}
-                productName={product.productName}
-                brand={product.brandName}
-                price={<Box color="success.main">{product.price}</Box>}
-                sku={product.code}
-                productUrl={product.pdpURL}
-                color={product.color}
-                colorSwatch={product.colorSwatch[0] && <ColorSwatches product={product} />}
+                mediaUrl={mobileImageURLs[0]}
+                mediaTitle={productName}
+                productName={productName}
+                brand={brandName}
+                price={<Box color="success.main">{price}</Box>}
+                sku={code}
+                productUrl={pdpURL}
+                color={color}
+                colorSwatch={colorSwatch[0] && <ColorSwatches colorSwatch={colorSwatch} />}
               />
             </Grid>
           )
         })
         : <ProductSkeleton length={6} />
       }
-      <Pagination
-        count={PAGINATION_ITEMS_LENGTH}
-        getItemAriaLabel={getCurrentPageId}
-        variant="outlined"
-        shape="rounded"
-      />
     </>
   )
 }
+
+ProductList.propTypes = {
+  data: PropTypes.array,
+  pageID: PropTypes.number
+};
+
 
 export default ProductList;

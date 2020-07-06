@@ -34,3 +34,12 @@ body {
 .MuiPagination-root {
   margin: 10px auto;
 }
+
+.MuiPagination-root .MuiPagination-ul {
+  justify-content: center;
+}
+
+.MuiFormControl-root.MuiTextField-root {
+  width: 100%;
+  margin-bottom: 16px;
+}

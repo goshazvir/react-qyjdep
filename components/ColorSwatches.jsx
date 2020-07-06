@@ -13,12 +13,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ColorSwatches = (props) => {
-  const { product } = props
-
+  const { colorSwatch } = props
   const classes = useStyles();
 
   return (
-    product.colorSwatch.map(item => {
+    colorSwatch.map(item => {
       return (
         <li className="list-item" key={uniqid()}>
           <Link
@@ -36,7 +35,7 @@ const ColorSwatches = (props) => {
 }
 
 ColorSwatches.propTypes = {
-  product: PropTypes.object.isRequired
+  colorSwatch: PropTypes.array.isRequired
 };
 
 export default ColorSwatches;
