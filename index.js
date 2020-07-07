@@ -29,7 +29,7 @@ const App = () => {
   return (
     <>
       <Container maxWidth="sm">
-          <FilterForm />
+          <FilterForm id="search-input" label="Filter Products By Name" />
           <Grid container spacing={3}>
             <ProductList data={productsData} />
           </Grid>

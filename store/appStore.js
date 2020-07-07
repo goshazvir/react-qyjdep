@@ -10,12 +10,24 @@ const PageID = types
         }
     }))
 
+const FilterByName = types
+    .model("FilterByName", {
+        FilterByName: ''
+    })
+    .actions(self => ({
+        setFilterValue(e) {
+            self.FilterByName = e
+        }
+    }))
+
 const Store = types.model("Store", {
-    PageID: types.array(PageID)
+    PageID: types.array(PageID),
+    FilterByName: types.array(FilterByName)
 })
 
 const AppStore = Store.create({
-    PageID: [{}]
+    PageID: [{}],
+    FilterByName: [{}]
 })
 
 export default AppStore
