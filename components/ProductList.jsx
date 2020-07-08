@@ -16,12 +16,13 @@ const ProductList = (props) => {
   const [pageID, setPageID] = useState(1);
   const [filteredProducts, setFilteredProducts] = useState('');
   const STORE_FILTERED_PRODUCTS = store.FilterByName[0].FilterByName;
-  const STORE_PAGE_ID = store.PageID[0].PageID;
 
   let productMinValue = pageID === 1 ? 0 : (pageID - 1) * productItemsOnPage;
   let productMaxValue = productItemsOnPage === 1 ? productItemsOnPage : pageID * productItemsOnPage;
 
   onSnapshot(store, snapshot => {
+    const STORE_PAGE_ID = store.PageID[0].PageID;
+
     if (STORE_PAGE_ID) {
       setPageID(STORE_PAGE_ID)
     }
@@ -38,7 +39,7 @@ const ProductList = (props) => {
 
   const productsTemplate = (productsArray) => {
     return (
-      productsArray.slice(productMinValue, productMaxValue).map(product => {
+      productsArray.map(product => {
         const {
           mobileImageURLs,
           productName,
@@ -81,14 +82,14 @@ const ProductList = (props) => {
       )
     }
     return (
-      productsTemplate(filteredProducts)
+      productsTemplate(filteredProducts.slice(productMinValue, productMaxValue))
     )
   }
 
   const paginationHandled = () => {
     if (data) {
       return (
-        productsTemplate(data)
+        productsTemplate(data.slice(productMinValue, productMaxValue))
       )
     }
   }
