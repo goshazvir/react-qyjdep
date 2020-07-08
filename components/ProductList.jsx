@@ -87,8 +87,6 @@ const ProductList = (props) => {
 
   const paginationHandled = () => {
     if (data) {
-      console.log(productMinValue, productMaxValue)
-
       return (
         productsTemplate(data)
       )
