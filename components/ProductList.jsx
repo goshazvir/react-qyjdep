@@ -15,68 +15,30 @@ const ProductList = (props) => {
   const { data } = props
   const [pageID, setPageID] = useState(1);
   const [filteredProducts, setFilteredProducts] = useState('');
+  const STORE_FILTERED_PRODUCTS = store.FilterByName[0].FilterByName;
+  const STORE_PAGE_ID = store.PageID[0].PageID;
+
   let productMinValue = pageID === 1 ? 0 : (pageID - 1) * productItemsOnPage;
   let productMaxValue = productItemsOnPage === 1 ? productItemsOnPage : pageID * productItemsOnPage;
 
   onSnapshot(store, snapshot => {
-    if (store.PageID[0].PageID) {
-      setPageID(store.PageID[0].PageID)
+    if (STORE_PAGE_ID) {
+      setPageID(STORE_PAGE_ID)
     }
 
-    if (data && store.FilterByName[0].FilterByName) {
+    if (data && !!STORE_FILTERED_PRODUCTS.length) {
       const results = data.filter(item =>
-        item.productName.includes(store.FilterByName[0].FilterByName)
+        item.productName.includes(STORE_FILTERED_PRODUCTS)
       )
       setFilteredProducts(results)
+    } else {
+      setFilteredProducts(data)
     }
   })
 
-  const ifSearchHandled = () => {
-    if (filteredProducts.length === 0) {
-      return (
-        <NoResults msg="No Results Found!" />
-      )
-    }
+  const productsTemplate = (productsArray) => {
     return (
-        filteredProducts.map(product => {
-          const {
-            mobileImageURLs,
-            productName,
-            brandName,
-            price,
-            code,
-            pdpURL,
-            color,
-            colorSwatch
-          } = product
-
-        return (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            key={uniqid()}
-          >
-            <ProductItem
-              mediaUrl={mobileImageURLs[0]}
-              mediaTitle={productName}
-              productName={productName}
-              brand={brandName}
-              price={<Box color="success.main">{price}</Box>}
-              sku={code}
-              productUrl={pdpURL}
-              color={color}
-              colorSwatch={colorSwatch[0] && <ColorSwatches colorSwatch={colorSwatch} />}
-            />
-          </Grid>
-        )
-      })
-    )
-  }
-
-  const paginationHandled = () => {
-    return (
-      data.slice(productMinValue, productMaxValue).map(product => {
+      productsArray.slice(productMinValue, productMaxValue).map(product => {
         const {
           mobileImageURLs,
           productName,
@@ -87,7 +49,7 @@ const ProductList = (props) => {
           color,
           colorSwatch
         } = product
-
+  
         return (
           <Grid
             item
@@ -112,8 +74,29 @@ const ProductList = (props) => {
     )
   }
 
+  const ifSearchHandled = () => {
+    if (filteredProducts.length === 0) {
+      return (
+        <NoResults msg="No Results Found!" />
+      )
+    }
+    return (
+      productsTemplate(filteredProducts)
+    )
+  }
+
+  const paginationHandled = () => {
+    if (data) {
+      console.log(productMinValue, productMaxValue)
+
+      return (
+        productsTemplate(data)
+      )
+    }
+  }
+
   const renderProducts = () => {
-    if (Array.isArray(filteredProducts) && filteredProducts.length >= 0) {
+    if (STORE_FILTERED_PRODUCTS) {
       return ifSearchHandled()
     } else {
       return paginationHandled()
